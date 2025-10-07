@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import styles from '../style';
 
 export default function Register({ navigation }) {
@@ -15,13 +15,8 @@ export default function Register({ navigation }) {
         setFormData({ ...formData, [field]: value });
     };
 
-    const handleReview = () => {
-        console.log("Navigating to Reviewpage with data:", formData);
-        navigation.navigate('Reviewpage', { formData });
-    };
-
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#f0f8ff' }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             <View style={styles.container}>
                 <View style={styles.card}>
                     <Text style={[styles.sectionTitle, { color: '#27ae60' }]}>
@@ -30,7 +25,7 @@ export default function Register({ navigation }) {
                     
                     <Text style={[styles.sectionDescription, { 
                         backgroundColor: '#e8f6f3',
-                        borderLeftColor: '#27ae60' // Green accent
+                        borderLeftColor: '#27ae60'
                     }]}>
                         Please fill in all your details below
                     </Text>
@@ -85,7 +80,7 @@ export default function Register({ navigation }) {
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={styles.buttonSecondary}
-                        onPress={handleReview}
+                        onPress={() => navigation.navigate('Reviewpage', { formData })}
                     >
                         <Text style={styles.buttonText}>Review and Submit</Text>
                     </TouchableOpacity>
