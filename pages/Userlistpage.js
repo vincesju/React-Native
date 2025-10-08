@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Alert } from "react";
 import { View, Text, FlatList } from "react-native";
 import axios from "axios";
 import styles from '../style';
+import { Button } from "react-native-web";
 
 export default function UserListPage() {
     const [users, setUsers] = useState([]);
@@ -15,6 +16,37 @@ export default function UserListPage() {
                 console.log(err);
             });
     }, []);
+
+    const handleEdit = (user) => {
+        navigation.navigate('EditUser', { user });
+    };
+
+    const handleDelete = (userId) => {
+        Alert.alert(
+            "Confirm Deletion",
+            "Are you sure you want to delete?",
+            [
+                {
+                    text: "Cancel", style: "cancel"
+                },
+                {
+                    text: "Delete",
+                    style: "destructive",
+                    onPress: () => {
+                        axios.delete(`http://127.0.0.1:8000/registration/api/users/${id}/`)
+                            .then(() => {
+                                Alert.alert("Succsess", "User deleted successfully");
+
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                                Alert.alert("Error", "Failed to delete user");
+                            });
+                    }
+                }
+            ]
+        );
+    }
 
     return (
         <View style={styles.container}>
@@ -41,6 +73,10 @@ export default function UserListPage() {
                             <Text style={{fontWeight: 'bold', color: '#8e44ad'}}>Gender: </Text>
                             {item.gender}
                         </Text>
+                        <View>
+                            <Button title="Edit" color="#8e44ad" onPress={() => handleEdit(item)} />
+                            <Button title="Delete" color="#e74c3c" onPress={() => {item}} />
+                        </View>
                     </View>
                 )} 
             />
