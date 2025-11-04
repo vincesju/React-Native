@@ -2,6 +2,7 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-nativ
 import { useState } from 'react';
 import axios from 'axios';
 import styles from '../style';
+import { API_URL } from '../config';
 
 export default function EditUserPage({ route, navigation }) {
     const user = route?.params?.user;
@@ -54,7 +55,7 @@ export default function EditUserPage({ route, navigation }) {
         }
 
         axios
-            .put(`http://127.0.0.1:8000/registration/api/users/${user.id}/`, updateData)
+            .put(`${API_URL}/registration/api/users/${user.id}/`, updateData)
             .then((response) => {
                 alert("User updated successfully.");
                 navigation.goBack();

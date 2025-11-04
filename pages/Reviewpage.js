@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Alert, TouchableOpacity, ScrollView } from 'react-native';
 import styles from '../style';
 import axios from 'axios';
+import { API_URL } from '../config';
 
 export default function Reviewpage({ route, navigation }) {
     const { formData } = route.params;
@@ -9,7 +10,7 @@ export default function Reviewpage({ route, navigation }) {
     const handleSubmit = async () => {
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8000/registration/api/register/",
+                `${API_URL}/registration/api/register/`,
                 formData
             );
             Alert.alert("Success", "User registered successfully");

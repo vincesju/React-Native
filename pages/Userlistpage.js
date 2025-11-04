@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, Alert, TouchableOpacity } from "react-native";
 import axios from "axios";
 import styles from '../style';
+import { API_URL } from '../config';
 
 export default function UserListPage({ navigation }) {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/registration/api/users/")
+        axios.get(`${API_URL}/registration/api/users/`)
             .then((res) => {
                 setUsers(res.data);
             })
@@ -25,12 +26,12 @@ export default function UserListPage({ navigation }) {
         const userConfirmed = window.confirm("Are you sure you want to delete this user?");
 
         if (userConfirmed) {
-            axios.delete(`http://127.0.0.1:8000/registration/api/users/${userId}/`)
+            axios.delete(`${API_URL}/registration/api/users/${userId}/`)
                 .then((response) => {
                     alert("User deleted successfully");
 
                     // Refresh the list from server
-                    axios.get("http://127.0.0.1:8000/registration/api/users/")
+                    axios.get(`${API_URL}/registration/api/users/`)
                         .then((res) => {
                             setUsers(res.data);
                         })
